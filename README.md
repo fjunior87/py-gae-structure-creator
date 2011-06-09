@@ -3,10 +3,15 @@
 Simple project intended to create a basic structure for Python GAE apps.
 It creates the following directory structure
 -appName
+
 	-static
+
 	-templates
+	
 	-app.yaml
+	
 	-main.py
+
 
 ## Usage
 
