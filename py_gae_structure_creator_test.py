@@ -3,7 +3,9 @@ import py_gae_structure_creator
 import os
 
 class GaeStructureCreatorTest(unittest.TestCase):
-	
+	"""
+	Unit Test Class for GaeStructureCreator class
+	"""
 	
 	def setUp(self):
 		self.appName = "testapp"
@@ -24,20 +26,23 @@ class GaeStructureCreatorTest(unittest.TestCase):
 		self.assertTrue(os.path.exists(testdirpath))
 		dirContent = os.listdir(testdirpath)
 		
-		self.assertTrue("app.yaml" in dirContent)
-		self.assertTrue("templates" in dirContent)
-		self.assertTrue("static" in dirContent)
+		self.assertTrue(py_gae_structure_creator.APP_YAML in dirContent)
+		self.assertTrue(py_gae_structure_creator.TEMPLATES_DIR in dirContent)
+		self.assertTrue(py_gae_structure_creator.STATIC_DIR in dirContent)
+		self.assertTrue(py_gae_structure_creator.MAIN_PY in dirContent)
 		
-		appYaml = """application: testapp
-version: 1
-api_version: 1
-runtime: python
+		 
+		appYaml ="application: testapp\n"\
+		"version: 1\n"\
+		"api_version: 1\n"\
+		"runtime: python\n"\
+		"\n"\
+		"handlers:\n"\
+		"- url: /static\n"\
+		"  static_dir: static\n"\
+		"- url: .*\n"\
+		"  script: main.py"\
 
-handlers:
-- url: /static
-  static_dir: static
-- url: .*
-  script: main.py"""
 		
 		
 		with open(os.path.join(testdirpath, "app.yaml")) as file:
